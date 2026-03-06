@@ -1,5 +1,8 @@
+import tkinter as tk
+from tkinter import font as tkfont
 from pathlib import Path
 import random
+
 
 word_file = Path("5-letter-words.txt")
 
@@ -18,7 +21,6 @@ def user_guess(word_bank):
             return guess
 
 def score_guess(guess: str, target: str):
-    
     result = ["B"] * 5
     target_chars = list(target)
 
@@ -41,6 +43,14 @@ def score_guess(guess: str, target: str):
 
     return result
 
+BG = "#121213"
+app = tk.Tk()
+app.title("Wordle")
+app.configure(bg=BG)
+app.resizable(False, False)
+app.geometry("500x700")
+app.mainloop()
+
 def emoji_feedback(score):
     emoji_map = {"G": "🟩", "Y": "🟨", "B": "⬛", "O": "🟧"}
     return "".join(emoji_map[s] for s in score)
@@ -55,7 +65,7 @@ def main():
     print("Wordle Test Project (Emoji Board)\n")
     print_legend()
     words = load_word_bank(word_file)
-    target = "trees"
+    target = random.choice(words)
     board = []
 
     for attempt in range(1, 7):
